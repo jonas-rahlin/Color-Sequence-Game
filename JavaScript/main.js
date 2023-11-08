@@ -23,6 +23,8 @@ let userSequence = [];
 //Array för att samla antal klick
 let count = 0;
 
+//Variabel för att se om en sekvens körs
+let isActive = false;
 
 //Funktion för att visa alerts
 let alertToggle = (event) => {
@@ -38,8 +40,13 @@ let alertToggle = (event) => {
 let start = () => {
     //Deklarerar att spelet har startat
     gameOver = false;
+
+    //Deklarerar att sekvens körs
+    isActive = true;
+
     //Resetar räkningen
     count = 0;
+
 
     //Resetar användar sekvensen
     userSequence = [];
@@ -86,6 +93,8 @@ let start = () => {
           }, i * 2000);
     })
     }, 5000)
+    //Deklarerar att sekvens är slut
+    isActive = false;
 }
 
 //Click event för att starta spelet   
@@ -100,42 +109,44 @@ startStop.addEventListener("click", ()=> {
 
 //Click events för färg knapparna
 padsVar.forEach((el)=>{
-    //Lägger till event listeners för click på alla knappar
-    el.addEventListener("click", ()=>{
-        //Lägger till i räknings listan och användar sekvensen
-        count++;
-        if(el===pad0){
-            userSequence.push(0);
-        }
-        if(el===pad1){
-            userSequence.push(1);
-        }
-        if(el===pad2){
-            userSequence.push(2);
-        }
-        if(el===pad3){
-            userSequence.push(3);
-        }
-
-        //Meddelar Game Over
-        if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
-            alertToggle("GAME OVER!");
-            setTimeout(()=>{
-                alertToggle(`You survived for ${score} rounds.`);
-            }, 4000)
-        }
-        
-        //Meddelar korrekt sekvens input och startar nästa runda
-        else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
-            if(count === sequence.length){
-                alertToggle("CORRECT!");
-                score++
-                setTimeout(()=>{
-                    start();
-                }, 5000)
+    //Om ingen sekvens körs
+    if(isActive === false) {
+        el.addEventListener("click", ()=>{
+            //Lägger till i räknings listan och användar sekvensen
+            count++;
+            if(el===pad0){
+                userSequence.push(0);
             }
-        }
-    })
+            if(el===pad1){
+                userSequence.push(1);
+            }
+            if(el===pad2){
+                userSequence.push(2);
+            }
+            if(el===pad3){
+                userSequence.push(3);
+            }
+    
+            //Meddelar Game Over
+            if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
+                alertToggle("GAME OVER!");
+                setTimeout(()=>{
+                    alertToggle(`You survived for ${score} rounds.`);
+                }, 4000)
+            }
+            
+            //Meddelar korrekt sekvens input och startar nästa runda
+            else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
+                if(count === sequence.length){
+                    alertToggle("CORRECT!");
+                    score++
+                    setTimeout(()=>{
+                        start();
+                    }, 5000)
+                }
+            }
+        })
+    }
 })
 
 
