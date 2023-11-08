@@ -18,30 +18,36 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgb(49, 49, 49);
+      background-color: black;
   }
   
   #gameDevice{
       width:400px;
       height:400px;
-      border: solid 1px white;
       position:relative;
+      border: solid 10px rgb(41, 41, 41);
+      background-color:rgb(41, 41, 41);
 
       #startStop{
-        width:100px;
-        height:100px;
+        width:175px;
+        height:175px;
         background-color: black;
         position:absolute;
         margin: 0 auto;
         top:50%;
         left:50%;
         transform: translate(-50%, -50%);
+        z-index:2;
+        cursor: pointer;
+        border:solid 15px rgb(41, 41, 41);
       }
 
       .pad{
-        width: 100px;
-        height: 100px;
-        margin:10px;
+        width: 200px;
+        height: 200px;
+        cursor: pointer;
+        z-index:1;
+        border:solid 10px rgb(41, 41, 41);
       }
 
       #pad0{
