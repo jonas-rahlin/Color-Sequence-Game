@@ -16,7 +16,6 @@ let score = 0;
 
 //Array att samla en ny sekvens i
 let sequence = [];
-
 //Array för att samla användarens click
 let userSequence = [];
 
@@ -88,8 +87,6 @@ let start = () => {
 
 //Click event för att starta spelet   
 startStop.addEventListener("click", ()=> {
-    //Stoppa click events medans sekvensen körs
-    document.body.classList.add("noClick");
     if(gameOver === true){
         sequence = [];
         setTimeout(()=>{
