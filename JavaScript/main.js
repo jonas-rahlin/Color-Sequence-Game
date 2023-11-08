@@ -7,9 +7,12 @@ const pad2 = document.getElementById("pad2");
 const pad3 = document.getElementById("pad3");
 const pads = document.querySelectorAll(".pad");
 const padsVar = [pad0, pad1, pad2, pad3];
+const alerstModal = document.getElementById("alertsModal");
 
 //Variabel som deklarerar om spelet är igång eller ej
 let gameOver = true;
+
+let score = 0;
 
 //Array att samla en ny sekvens i
 let sequence = [];
@@ -18,6 +21,8 @@ let sequence = [];
 let start = () => {
     //Deklarerar att spelet har startat
     gameOver = false;
+
+    //Round Alert
 
     //Genererar random int 0-4
     sequence.push(Math.floor(Math.random()*4));
@@ -58,15 +63,13 @@ let start = () => {
     })
 }
 
-//click event för att starta spelet   
+//Click event för att starta spelet   
 startStop.addEventListener("click", ()=> {
     if(gameOver = true){
         sequence = [];
         start();
     }
 })
-
-//Skapa ljud
 
 //Click matchning
 
@@ -88,9 +91,24 @@ padsVar.forEach((el)=>{
             userSequence.push(3);
         }
 
+        //Alerts Game Over
         if(JSON.stringify(sequence) !== JSON.stringify(userSequence)){
             gameOver = true;
-            //ALERT LOSS
+            document.getElementById("alertsModal").firstChild.innerText = "GAME OVER!";
+            //Display score
+            setTimeout(()=>{
+                document.getElementById("alertsModal").firstChild.innerText = "You survived for " + score " rounds.";
+            }, 3000)
+        }
+
+        //Alerts Correct Sequence, adds 1+ to score, and starts next round
+        else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
+            
+            document.getElementById("alertsModal").firstChild.innerText = "CORRECT!";
+            score++
+            setTimeout((=>{
+                start();
+            }))
         }
     })
 })
