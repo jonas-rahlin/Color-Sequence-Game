@@ -92,7 +92,9 @@ let start = () => {
 startStop.addEventListener("click", ()=> {
     if(gameOver = true){
         sequence = [];
-        start();
+        setTimeout(()=>{
+            start();
+        }, 500)
     }
 })
 
