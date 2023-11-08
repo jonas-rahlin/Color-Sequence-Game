@@ -31,7 +31,7 @@ let alertToggle = (event) => {
 
     setTimeout(()=>{
         alertsModal.classList.add("displayNone");
-    }, 3000)
+    }, 2000)
 }
 
 //Funktion för att skapa och köra sekvensen
@@ -118,12 +118,9 @@ padsVar.forEach((el)=>{
         //Meddelar Game Over
         if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
             alertToggle("GAME OVER!");
-
-            //FUNKAR INTE!!!!
-
             setTimeout(()=>{
-                alertsToggle(`You survived for ${score}rounds.`);
-            }, 6000)
+                alertToggle(`You survived for ${score} rounds.`);
+            }, 4000)
         }
         
         //Meddelar korrekt sekvens input och startar nästa runda
