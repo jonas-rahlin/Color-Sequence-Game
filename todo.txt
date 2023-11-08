@@ -1,3 +1,4 @@
 fixa grafiken.
 ljudeffekter.
-disable clicks when sequence is active.
+
+fixa click disable.

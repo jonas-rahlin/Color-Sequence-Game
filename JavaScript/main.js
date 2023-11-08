@@ -23,9 +23,6 @@ let userSequence = [];
 //Array för att samla antal klick
 let count = 0;
 
-//Variabel för att se om en sekvens körs
-let isActive = false;
-
 //Funktion för att visa alerts
 let alertToggle = (event) => {
     alertsModal.firstChild.innerText = event;
@@ -41,12 +38,8 @@ let start = () => {
     //Deklarerar att spelet har startat
     gameOver = false;
 
-    //Deklarerar att sekvens körs
-    isActive = true;
-
     //Resetar räkningen
     count = 0;
-
 
     //Resetar användar sekvensen
     userSequence = [];
@@ -69,37 +62,35 @@ let start = () => {
                     pad0.classList.remove("active"); 
                 }, 1200)
             }
-    
-            if(element === 1){
+            else if(element === 1){
                 pad1.classList.add("active");
                 setTimeout(()=>{
                     pad1.classList.remove("active"); 
                 }, 1200)
             }
-    
-            if(element === 2){
+            else if(element === 2){
                 pad2.classList.add("active");
                 setTimeout(()=>{
                     pad2.classList.remove("active"); 
                 }, 1200)
             }
-    
-            if(element === 3){
+            else if(element === 3){
                 pad3.classList.add("active");
                 setTimeout(()=>{
                     pad3.classList.remove("active"); 
                 }, 1200)
             }
-          }, i * 2000);
+            //Öppnar upp click events igen
+        }, i * 2000);
     })
     }, 5000)
-    //Deklarerar att sekvens är slut
-    isActive = false;
 }
 
 //Click event för att starta spelet   
 startStop.addEventListener("click", ()=> {
-    if(gameOver = true){
+    //Stoppa click events medans sekvensen körs
+    document.body.classList.add("noClick");
+    if(gameOver === true){
         sequence = [];
         setTimeout(()=>{
             start();
@@ -109,44 +100,39 @@ startStop.addEventListener("click", ()=> {
 
 //Click events för färg knapparna
 padsVar.forEach((el)=>{
-    //Om ingen sekvens körs
-    if(isActive === false) {
-        el.addEventListener("click", ()=>{
-            //Lägger till i räknings listan och användar sekvensen
-            count++;
-            if(el===pad0){
-                userSequence.push(0);
-            }
-            if(el===pad1){
-                userSequence.push(1);
-            }
-            if(el===pad2){
-                userSequence.push(2);
-            }
-            if(el===pad3){
-                userSequence.push(3);
-            }
-    
-            //Meddelar Game Over
-            if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
-                alertToggle("GAME OVER!");
+    el.addEventListener("click", ()=>{
+        //Lägger till i räknings listan och användar sekvensen
+        count++;
+        if(el===pad0){
+            userSequence.push(0);
+        }
+        if(el===pad1){
+            userSequence.push(1);
+        }
+        if(el===pad2){
+            userSequence.push(2);
+        }
+        if(el===pad3){
+            userSequence.push(3);
+        }
+
+        //Meddelar Game Over
+        if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
+            alertToggle("GAME OVER!");
+            setTimeout(()=>{
+                alertToggle(`You survived for ${score} rounds.`);
+            }, 4000)
+        }
+        
+        //Meddelar korrekt sekvens input och startar nästa runda
+        else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
+            if(count === sequence.length){
+                alertToggle("CORRECT!");
+                score++
                 setTimeout(()=>{
-                    alertToggle(`You survived for ${score} rounds.`);
-                }, 4000)
+                    start();
+                }, 5000)
             }
-            
-            //Meddelar korrekt sekvens input och startar nästa runda
-            else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
-                if(count === sequence.length){
-                    alertToggle("CORRECT!");
-                    score++
-                    setTimeout(()=>{
-                        start();
-                    }, 5000)
-                }
-            }
-        })
+        }
     }
-})
-
-
+)})

@@ -6,3 +6,8 @@
 .displayNone{
     display:none;
 }
+
+.noClick{
+    pointer-events: none;
+    cursor:none;
+}
