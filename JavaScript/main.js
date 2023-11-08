@@ -58,7 +58,6 @@ let start = () => {
     })
 }
 
-
 //click event för att starta spelet   
 startStop.addEventListener("click", ()=> {
     if(gameOver = true){
@@ -92,7 +91,6 @@ padsVar.forEach((el)=>{
         if(JSON.stringify(sequence) !== JSON.stringify(userSequence)){
             gameOver = true;
             //ALERT LOSS
-            //make modal
         }
     })
 })
