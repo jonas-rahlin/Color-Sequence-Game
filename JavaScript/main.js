@@ -37,6 +37,9 @@ let start = () => {
     //Deklarerar att spelet har startat
     gameOver = false;
 
+    //Hindrar clicks när sekvensen körs
+    document.body.classList.add("noClick");
+
     //Resetar räkningen
     count = 0;
 
@@ -49,39 +52,42 @@ let start = () => {
     //Startar sekvensen efter 5000ms
     setTimeout(()=>{
     //Genererar random int 0-4
-    sequence.push(Math.floor(Math.random()*4));
+        sequence.push(Math.floor(Math.random()*4));
     //Loopar igenom sekvens arrayen
-    sequence.forEach((element, i)=>{
+        sequence.forEach((element, i)=>{
         //Sätter en interval på 2000ms mellan varje iteration
-        setTimeout(() => {
-            //Lägger till och tar bort klasser för att grafiskt visa sekvensen för användaren
-            if(element === 0){
-                pad0.classList.add("active");
-                setTimeout(()=>{
-                    pad0.classList.remove("active"); 
-                }, 1200)
-            }
-            else if(element === 1){
-                pad1.classList.add("active");
-                setTimeout(()=>{
-                    pad1.classList.remove("active"); 
-                }, 1200)
-            }
-            else if(element === 2){
-                pad2.classList.add("active");
-                setTimeout(()=>{
-                    pad2.classList.remove("active"); 
-                }, 1200)
-            }
-            else if(element === 3){
-                pad3.classList.add("active");
-                setTimeout(()=>{
-                    pad3.classList.remove("active"); 
-                }, 1200)
-            }
-            //Öppnar upp click events igen
-        }, i * 2000);
-    })
+            setTimeout(() => {
+                //Lägger till och tar bort klasser för att grafiskt visa sekvensen för användaren
+                if(element === 0){
+                    pad0.classList.add("active");
+                    setTimeout(()=>{
+                        pad0.classList.remove("active"); 
+                    }, 1200)
+                }
+                else if(element === 1){
+                    pad1.classList.add("active");
+                    setTimeout(()=>{
+                        pad1.classList.remove("active"); 
+                    }, 1200)
+                }
+                else if(element === 2){
+                    pad2.classList.add("active");
+                    setTimeout(()=>{
+                        pad2.classList.remove("active"); 
+                    }, 1200)
+                }
+                else if(element === 3){
+                    pad3.classList.add("active");
+                    setTimeout(()=>{
+                        pad3.classList.remove("active"); 
+                    }, 1200)
+                }
+            }, i * 2000);
+    });
+    //Tillåter klick igen (efter sekvensen)
+    setTimeout(() => {
+        document.body.classList.remove("noClick");
+    }, sequence.length * 2000);
     }, 5000)
 }
 
@@ -133,3 +139,33 @@ padsVar.forEach((el)=>{
         }
     }
 )})
+
+sequence.forEach((element, i)=>{
+    setTimeout(() => {
+        if(element === 0){
+            pad0.classList.add("active");
+            setTimeout(()=>{
+                pad0.classList.remove("active"); 
+            }, 1200)
+        }
+        else if(element === 1){
+            pad1.classList.add("active");
+            setTimeout(()=>{
+                pad1.classList.remove("active"); 
+            }, 1200)
+        }
+        else if(element === 2){
+            pad2.classList.add("active");
+            setTimeout(()=>{
+                pad2.classList.remove("active"); 
+            }, 1200)
+        }
+        else if(element === 3){
+            pad3.classList.add("active");
+            setTimeout(()=>{
+                pad3.classList.remove("active"); 
+            }, 1200)
+        }
+    }, i * 2000);
+    //INSERT FUNCTION HÄR!
+})
