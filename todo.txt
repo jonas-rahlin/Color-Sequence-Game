@@ -1,4 +1,3 @@
 fixa grafiken.
-fixa buggen för round survival.
 ljudeffekter.
 disable clicks when sequence is active.
