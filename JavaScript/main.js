@@ -143,7 +143,7 @@ padsVar.forEach((element)=>{
                 element.classList.remove("clicked");
             }, 200)
             //Meddelar Game Over
-            if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
+/*BUGG HÄR-->*/ if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
                 score = 0;
                 document.body.classList.add("noClick");
                 audioEnd.play();
