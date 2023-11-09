@@ -9,8 +9,11 @@ const pads = document.querySelectorAll(".pad");
 const padsVar = [pad0, pad1, pad2, pad3];
 const alertsModal = document.getElementById("alertsModal");
 const audioBeep = document.getElementById("audioBeep");
+const audioStartClick = document.getElementById("audioStartClick");
 const audioStart = document.getElementById("audioStart");
+const audioCorrect = document.getElementById("audioCorrect");
 const audioEnd = document.getElementById("audioEnd");
+
 
 //Variabel som deklarerar om spelet är igång eller ej
 let gameOver = true;
@@ -51,6 +54,7 @@ let start = () => {
 
     //Round Alert
     alertToggle(`Round ${score+1}`)
+    audioStart.play();
 
     //Startar sekvensen efter 5000ms
     setTimeout(()=>{
@@ -100,7 +104,7 @@ let start = () => {
 
 //Click event för att starta spelet och visa animation  
 startStop.addEventListener("click", ()=> {
-    audioStart.play();
+    audioStartClick.play();
     startStop.classList.add("startClicked");
     setTimeout(()=>{
         startStop.classList.remove("startClicked");
@@ -114,53 +118,55 @@ startStop.addEventListener("click", ()=> {
 })
 
 //Click events för färg knapparna
+
 padsVar.forEach((element)=>{
     element.addEventListener("click", ()=>{
         //Lägger till i räknings listan och användar sekvensen
-        count++;
-        if(element===pad0){
-            userSequence.push(0);
-        }
-        if(element===pad1){
-            userSequence.push(1);
-        }
-        if(element===pad2){
-            userSequence.push(2);
-        }
-        if(element===pad3){
-            userSequence.push(3);
-        }
-
-        //Applicera klick animation och ljud
-        element.classList.add("clicked");
-        audioBeep.play();
-        setTimeout(()=>{
-            element.classList.remove("clicked");
-        }, 200)
-
-        //Meddelar Game Over
-        if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
-            document.body.classList.add("noClick");
-            audioEnd.play();
-            alertToggle("GAME OVER!");
+        if(gameOver === false){
+            count++;
+            if(element===pad0){
+                userSequence.push(0);
+            }
+            if(element===pad1){
+                userSequence.push(1);
+            }
+            if(element===pad2){
+                userSequence.push(2);
+            }
+            if(element===pad3){
+                userSequence.push(3);
+            }
+            //Applicera klick animation och ljud
+            element.classList.add("clicked");
+            audioBeep.play();
             setTimeout(()=>{
-                alertToggle(`Your score: ${score}`);
-            }, 4000)
-            setTimeout(()=>{
-                document.body.classList.remove("noClick");
-            }, 4500)
-            gameOver = true;
-        }
-
-        //Meddelar korrekt sekvens input och startar nästa runda
-        else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
-            document.body.classList.add("noClick");
-            if(count === sequence.length){
-                alertToggle("CORRECT!");
-                score++
+                element.classList.remove("clicked");
+            }, 200)
+            //Meddelar Game Over
+            if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
+                score = 0;
+                document.body.classList.add("noClick");
+                audioEnd.play();
+                alertToggle("GAME OVER!");
                 setTimeout(()=>{
-                    start();
-                }, 5000)
+                    alertToggle(`Your score: ${score}`);
+                }, 4000)
+                setTimeout(()=>{
+                    document.body.classList.remove("noClick");
+                }, 4500)
+                gameOver = true;
+            }
+            //Meddelar korrekt sekvens input och startar nästa runda
+            else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
+                document.body.classList.add("noClick");
+                if(count === sequence.length){
+                    audioCorrect.play();
+                    alertToggle("CORRECT!");
+                    score++
+                    setTimeout(()=>{
+                        start();
+                    }, 5000)
+                }
             }
         }
     }

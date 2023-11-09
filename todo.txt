@@ -1,1 +1,1 @@
-ljudeffekter.
+fixa buggen med att sequensern kräver fulltalighet för att matcha.
