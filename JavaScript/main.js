@@ -8,6 +8,9 @@ const pad3 = document.getElementById("pad3");
 const pads = document.querySelectorAll(".pad");
 const padsVar = [pad0, pad1, pad2, pad3];
 const alertsModal = document.getElementById("alertsModal");
+const audioBeep = document.getElementById("audioBeep");
+const audioStart = document.getElementById("audioStart");
+const audioEnd = document.getElementById("audioEnd");
 
 //Variabel som deklarerar om spelet är igång eller ej
 let gameOver = true;
@@ -60,24 +63,28 @@ let start = () => {
                 //Lägger till och tar bort klasser för att grafiskt visa sekvensen för användaren
                 if(element === 0){
                     pad0.classList.add("active");
+                    audioBeep.play();
                     setTimeout(()=>{
                         pad0.classList.remove("active");
                     }, 1200)
                 }
                 else if(element === 1){
                     pad1.classList.add("active");
+                    audioBeep.play();
                     setTimeout(()=>{
                         pad1.classList.remove("active"); 
                     }, 1200)
                 }
                 else if(element === 2){
                     pad2.classList.add("active");
+                    audioBeep.play();
                     setTimeout(()=>{
                         pad2.classList.remove("active"); 
                     }, 1200)
                 }
                 else if(element === 3){
                     pad3.classList.add("active");
+                    audioBeep.play();
                     setTimeout(()=>{
                         pad3.classList.remove("active"); 
                     }, 1200)
@@ -93,6 +100,7 @@ let start = () => {
 
 //Click event för att starta spelet och visa animation  
 startStop.addEventListener("click", ()=> {
+    audioStart.play();
     startStop.classList.add("startClicked");
     setTimeout(()=>{
         startStop.classList.remove("startClicked");
@@ -123,8 +131,9 @@ padsVar.forEach((element)=>{
             userSequence.push(3);
         }
 
-        //Applicera klick animation
+        //Applicera klick animation och ljud
         element.classList.add("clicked");
+        audioBeep.play();
         setTimeout(()=>{
             element.classList.remove("clicked");
         }, 200)
@@ -132,6 +141,7 @@ padsVar.forEach((element)=>{
         //Meddelar Game Over
         if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
             document.body.classList.add("noClick");
+            audioEnd.play();
             alertToggle("GAME OVER!");
             setTimeout(()=>{
                 alertToggle(`Your score: ${score}`);
