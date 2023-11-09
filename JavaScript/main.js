@@ -101,7 +101,7 @@ startStop.addEventListener("click", ()=> {
         sequence = [];
         setTimeout(()=>{
             start();
-        }, 500)
+        }, 1200)
     }
 })
 
