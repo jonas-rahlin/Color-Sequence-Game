@@ -91,8 +91,12 @@ let start = () => {
     }, 5000)
 }
 
-//Click event för att starta spelet   
+//Click event för att starta spelet och visa animation  
 startStop.addEventListener("click", ()=> {
+    startStop.classList.add("startClicked");
+    setTimeout(()=>{
+        startStop.classList.remove("startClicked");
+    }, 200)
     if(gameOver === true){
         sequence = [];
         setTimeout(()=>{
@@ -127,14 +131,20 @@ padsVar.forEach((element)=>{
 
         //Meddelar Game Over
         if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
+            document.body.classList.add("noClick");
             alertToggle("GAME OVER!");
             setTimeout(()=>{
-                alertToggle(`You survived for ${score} rounds.`);
+                alertToggle(`Your score: ${score}`);
             }, 4000)
+            setTimeout(()=>{
+                document.body.classList.remove("noClick");
+            }, 4500)
+            gameOver = true;
         }
 
         //Meddelar korrekt sekvens input och startar nästa runda
         else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
+            document.body.classList.add("noClick");
             if(count === sequence.length){
                 alertToggle("CORRECT!");
                 score++
