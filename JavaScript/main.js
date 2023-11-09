@@ -61,7 +61,7 @@ let start = () => {
                 if(element === 0){
                     pad0.classList.add("active");
                     setTimeout(()=>{
-                        pad0.classList.remove("active"); 
+                        pad0.classList.remove("active");
                     }, 1200)
                 }
                 else if(element === 1){
@@ -102,22 +102,28 @@ startStop.addEventListener("click", ()=> {
 })
 
 //Click events för färg knapparna
-padsVar.forEach((el)=>{
-    el.addEventListener("click", ()=>{
+padsVar.forEach((element)=>{
+    element.addEventListener("click", ()=>{
         //Lägger till i räknings listan och användar sekvensen
         count++;
-        if(el===pad0){
+        if(element===pad0){
             userSequence.push(0);
         }
-        if(el===pad1){
+        if(element===pad1){
             userSequence.push(1);
         }
-        if(el===pad2){
+        if(element===pad2){
             userSequence.push(2);
         }
-        if(el===pad3){
+        if(element===pad3){
             userSequence.push(3);
         }
+
+        //Applicera klick animation
+        element.classList.add("clicked");
+        setTimeout(()=>{
+            element.classList.remove("clicked");
+        }, 200)
 
         //Meddelar Game Over
         if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
@@ -126,7 +132,7 @@ padsVar.forEach((el)=>{
                 alertToggle(`You survived for ${score} rounds.`);
             }, 4000)
         }
-        
+
         //Meddelar korrekt sekvens input och startar nästa runda
         else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
             if(count === sequence.length){
@@ -139,33 +145,3 @@ padsVar.forEach((el)=>{
         }
     }
 )})
-
-sequence.forEach((element, i)=>{
-    setTimeout(() => {
-        if(element === 0){
-            pad0.classList.add("active");
-            setTimeout(()=>{
-                pad0.classList.remove("active"); 
-            }, 1200)
-        }
-        else if(element === 1){
-            pad1.classList.add("active");
-            setTimeout(()=>{
-                pad1.classList.remove("active"); 
-            }, 1200)
-        }
-        else if(element === 2){
-            pad2.classList.add("active");
-            setTimeout(()=>{
-                pad2.classList.remove("active"); 
-            }, 1200)
-        }
-        else if(element === 3){
-            pad3.classList.add("active");
-            setTimeout(()=>{
-                pad3.classList.remove("active"); 
-            }, 1200)
-        }
-    }, i * 2000);
-    //INSERT FUNCTION HÄR!
-})
