@@ -20,7 +20,7 @@ const padsVar = [pad0, pad1, pad2, pad3];
 let gameOver = true;
 
 //Variabel för att räkna poäng
-let score = 0;
+let score;
 
 //Array att samla en ny sekvens i
 let sequence = [];
@@ -122,6 +122,7 @@ startStop.addEventListener("click", ()=> {
             startStop.classList.remove("startClicked");
         }, 200)
         sequence = [];
+        score = 0;
         setTimeout(()=>{
             start();
         }, 1200)
@@ -168,7 +169,6 @@ padsVar.forEach((element)=>{
                     setTimeout(()=>{
                         document.body.classList.remove("noClick");
                     }, 4500)
-                    score = 0;
                     gameOver = true;       
                 }
             }
