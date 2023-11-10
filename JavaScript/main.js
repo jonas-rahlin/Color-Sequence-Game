@@ -110,20 +110,22 @@ let start = () => {
     }, 5000)
 }
 
-//Click event för att starta spelet och visa animation  
+//Click event för att starta spelet och visa animation 
+
 startStop.addEventListener("click", ()=> {
-    audioStartClick.play();
-    startStop.classList.add("startClicked");
-    setTimeout(()=>{
-        startStop.classList.remove("startClicked");
-    }, 200)
-    if(gameOver === true){
+    if(gameOver === true){ 
+        audioStartClick.play();
+        startStop.classList.add("startClicked");
+        setTimeout(()=>{
+            startStop.classList.remove("startClicked");
+        }, 200)
         sequence = [];
         setTimeout(()=>{
             start();
         }, 1200)
     }
 })
+
 
 //Click events för färg knapparna
 padsVar.forEach((element)=>{
