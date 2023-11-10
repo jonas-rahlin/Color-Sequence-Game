@@ -105,6 +105,8 @@ let start = () => {
 
     //Tillåter klick igen (efter sekvensen)
     setTimeout(() => {
+        alertToggle("Your Turn");
+        audioStart.play()
         document.body.classList.remove("noClick");
     }, sequence.length * 2000);
     }, 5000)
