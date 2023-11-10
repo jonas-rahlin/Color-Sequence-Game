@@ -159,7 +159,6 @@ padsVar.forEach((element)=>{
             //Meddelar Game Over
             for(i=0; i<userSequence.length; i++){
                 if(userSequence[i] !== sequence[i]){
-                    score = 0;
                     document.body.classList.add("noClick");
                     audioEnd.play();
                     alertToggle("GAME OVER!");
@@ -169,6 +168,7 @@ padsVar.forEach((element)=>{
                     setTimeout(()=>{
                         document.body.classList.remove("noClick");
                     }, 4500)
+                    score = 0;
                     gameOver = true;       
                 }
             }
