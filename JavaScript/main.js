@@ -6,7 +6,6 @@ const pad1 = document.getElementById("pad1");
 const pad2 = document.getElementById("pad2");
 const pad3 = document.getElementById("pad3");
 const pads = document.querySelectorAll(".pad");
-const padsVar = [pad0, pad1, pad2, pad3];
 const alertsModal = document.getElementById("alertsModal");
 const audioBeep = document.getElementById("audioBeep");
 const audioStartClick = document.getElementById("audioStartClick");
@@ -14,14 +13,18 @@ const audioStart = document.getElementById("audioStart");
 const audioCorrect = document.getElementById("audioCorrect");
 const audioEnd = document.getElementById("audioEnd");
 
+//Array som samlar pad variablerna
+const padsVar = [pad0, pad1, pad2, pad3];
 
 //Variabel som deklarerar om spelet är igång eller ej
 let gameOver = true;
 
+//Variabel för att räkna poäng
 let score = 0;
 
 //Array att samla en ny sekvens i
 let sequence = [];
+
 //Array för att samla användarens click
 let userSequence = [];
 
@@ -40,6 +43,7 @@ let alertToggle = (event) => {
 
 //Funktion för att skapa och köra sekvensen
 let start = () => {
+
     //Deklarerar att spelet har startat
     gameOver = false;
 
@@ -58,12 +62,15 @@ let start = () => {
 
     //Startar sekvensen efter 5000ms
     setTimeout(()=>{
-    //Genererar random int 0-4
+        //Genererar random int 0-4
         sequence.push(Math.floor(Math.random()*4));
-    //Loopar igenom sekvens arrayen
+
+        //Loopar igenom sekvens arrayen
         sequence.forEach((element, i)=>{
-        //Sätter en interval på 2000ms mellan varje iteration
+
+            //Sätter en interval på 2000ms mellan varje iteration
             setTimeout(() => {
+
                 //Lägger till och tar bort klasser för att grafiskt visa sekvensen för användaren
                 if(element === 0){
                     pad0.classList.add("active");
@@ -95,6 +102,7 @@ let start = () => {
                 }
             }, i * 2000);
     });
+
     //Tillåter klick igen (efter sekvensen)
     setTimeout(() => {
         document.body.classList.remove("noClick");
@@ -118,9 +126,9 @@ startStop.addEventListener("click", ()=> {
 })
 
 //Click events för färg knapparna
-
 padsVar.forEach((element)=>{
     element.addEventListener("click", ()=>{
+
         //Lägger till i räknings listan och användar sekvensen
         if(gameOver === false){
             count++;
@@ -136,28 +144,33 @@ padsVar.forEach((element)=>{
             if(element===pad3){
                 userSequence.push(3);
             }
+
             //Applicera klick animation och ljud
             element.classList.add("clicked");
             audioBeep.play();
             setTimeout(()=>{
                 element.classList.remove("clicked");
             }, 200)
+
             //Meddelar Game Over
-/*BUGG HÄR-->*/ if(JSON.stringify(sequence) !== JSON.stringify(userSequence) && sequence.length === userSequence.length){
-                score = 0;
-                document.body.classList.add("noClick");
-                audioEnd.play();
-                alertToggle("GAME OVER!");
-                setTimeout(()=>{
-                    alertToggle(`Your score: ${score}`);
-                }, 4000)
-                setTimeout(()=>{
-                    document.body.classList.remove("noClick");
-                }, 4500)
-                gameOver = true;
+            for(i=0; i<userSequence.length; i++){
+                if(userSequence[i] !== sequence[i]){
+                    score = 0;
+                    document.body.classList.add("noClick");
+                    audioEnd.play();
+                    alertToggle("GAME OVER!");
+                    setTimeout(()=>{
+                        alertToggle(`Your score: ${score}`);
+                    }, 4000)
+                    setTimeout(()=>{
+                        document.body.classList.remove("noClick");
+                    }, 4500)
+                    gameOver = true;       
+                }
             }
+
             //Meddelar korrekt sekvens input och startar nästa runda
-            else if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
+            if(JSON.stringify(sequence) === JSON.stringify(userSequence)){
                 document.body.classList.add("noClick");
                 if(count === sequence.length){
                     audioCorrect.play();
