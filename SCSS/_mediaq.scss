@@ -1,0 +1,41 @@
+@media screen and (max-width: 720px) {
+    #gameDevice{
+        width:300px !important;
+        height:300px !important;
+
+        #startStop{
+            width:130px !important;
+            height:130px !important;
+        }
+
+        .pad{
+            width:150px !important;
+            height:150px !important;
+        }
+    }
+
+    #alertsModal{
+        font-size:2rem;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    #gameDevice{
+        width:500px !important;
+        height:500px !important;
+
+        #startStop{
+            width:215px !important;
+            height:215px !important;
+        }
+
+        .pad{
+            width:250px !important;
+            height:250px !important;
+        }
+    }
+
+    #alertsModal{
+        font-size:2rem;
+    }
+}
